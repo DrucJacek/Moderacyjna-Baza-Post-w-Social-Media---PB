@@ -3,12 +3,11 @@
 ## Platforma „QuickTalk” to jedno z najpopularniejszych mediów społecznościowych na świecie. Każdego dnia użytkownicy publikują setki tysięcy krótkich wpisów komentujących rzeczywistość, wydarzenia, trendy i memy.
 ## Aby utrzymać platformę w bezpiecznym i przyjaznym stanie, działa szybki zespół moderatorów. Do ich pracy potrzebny jest sprawny system katalogowania i oceny postów, które zostały zgłoszone przez innych użytkowników.
 
-### Programu umożliwia zarządzanie danymi o zgłoszonych postach: ich rejestracją, wyszukiwaniem, modyfikacją, sortowaniem, usuwaniem oraz zapisem/odczytem z pliku.
-### System ułatwia szybkie sortowanie i ocenę treści tak, aby np. mem o kotach nie trafił na listę „poważne zagrożenie dla demokracji”.
+Programu umożliwia zarządzanie danymi o zgłoszonych postach: ich rejestracją, wyszukiwaniem, modyfikacją, sortowaniem, usuwaniem oraz zapisem/odczytem z pliku.
+System ułatwia szybkie sortowanie i ocenę treści tak, aby np. mem o kotach nie trafił na listę „poważne zagrożenie dla demokracji”.
 
 
-### Każdy post posiada minimalny (może być rozszerzony) zestaw cech, które muszą zostać zapisane w systemie:
-
+Każdy post posiada minimalny (może być rozszerzony) zestaw cech, które muszą zostać zapisane w systemie:
 - numeru ID wpisu - wewnętrzny unikalny identyfikator wszystkich wpisów w systemie (nadawany automatycznie w momencie dodania wpisu);
 - nazwa autora - nazwa użytkownika publikującego wpis, o maksymalnej długości 100 znaków. Pole może zawierać pseudonim, nazwę konta lub inny identyfikator;
 - treść posta - tekst wpisu, o maksymalnej długości zależnej od projektu (np. do 280 znaków). Treść powinna być przechowywana jako tekst i nie powinna być traktowana jako pole kluczowe;
