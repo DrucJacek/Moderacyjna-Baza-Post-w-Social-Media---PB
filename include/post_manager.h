@@ -1,0 +1,36 @@
+#ifndef POST_MANAGER_H
+#define POST_MANAGER_H
+
+typedef enum {
+    SPAM,
+    HEJT,
+    WULGARYZMY,
+    FEJK_NEWS,
+    NIEOPOWIEDNIE
+} Kategoria;
+
+typedef enum {
+    DO_WERYFIKACJI,
+    W_TRAKCIE_ANALIZY,
+    ZATWIERDZONE,
+    USUNIETE
+} Status;
+
+typedef struct Post {
+    int id;
+    char autor[101];
+    char tresc[281];
+    Kategoria kategoria;
+    int liczba_zgloszen;
+    Status status;
+    struct Post* next;
+} Post;
+
+typedef struct {
+    Post* head;
+    int ostatnie_id;
+} BazaPostow;
+
+void inicjalizuj_baze(BazaPostow* baza);
+
+#endif
