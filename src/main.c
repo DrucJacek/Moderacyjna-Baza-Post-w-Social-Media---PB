@@ -16,5 +16,8 @@ int main(int argc, char* argv[]) {
 
     printf("System QuickTalk załadowany. Plik: %s\n", argv[1]);
 
+    dodaj_post(&baza, "JanKowalski", "To jest moj pierwszy post!", SPAM);
+    printf("Dodano post o ID: %d\n", baza.head->id);
+
     return 0;
 };

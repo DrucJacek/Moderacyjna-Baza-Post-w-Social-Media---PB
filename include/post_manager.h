@@ -33,4 +33,6 @@ typedef struct {
 
 void inicjalizuj_baze(BazaPostow* baza);
 
+void dodaj_post(BazaPostow* baza, const char* autor, const char* tresc, Kategoria kat);
+
 #endif
