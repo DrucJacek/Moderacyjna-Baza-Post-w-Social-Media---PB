@@ -34,3 +34,21 @@ void dodaj_post(BazaPostow* baza, const char* autor, const char* tresc, Kategori
         temp->next = nowy;
     }
 }
+
+void usun_posty_kategorii(BazaPostow* baza, Kategoria kat) {
+    Post *aktualny = baza->head, *poprzedni = NULL;
+    int licznik = 0;
+
+    while (aktualny != NULL) {
+        if (aktualny->kategoria == kat) {
+            if (aktualny->status == DO_WERYFIKACJI) {
+                printf("Pominieto ID %d: Post niezweryfikowany.\n", aktualny->id);
+                poprzedni = aktualny;
+                aktualny = aktualny->next;
+                continue;
+            }
+
+            
+    }
+    printf("Usunieto %d postow z wybranej kategorii.\n", licznik);
+}
