@@ -11,7 +11,6 @@ void zapisz_do_pliku(const char* nazwa_pliku, BazaPostow* baza) {
 
     Post* aktualny = baza->head;
     while (aktualny != NULL) {
-        // Zapisujemy polami, oddzielając je np. średnikiem
         fprintf(plik, "%d;%s;%s;%d;%d;%d\n", 
                 aktualny->id, aktualny->autor, aktualny->tresc, 
                 aktualny->kategoria, aktualny->liczba_zgloszen, aktualny->status);
@@ -32,13 +31,11 @@ void wczytaj_z_pliku(const char* nazwa_pliku, BazaPostow* baza) {
     char autor[101], tresc[281];
     int id, kat, zglosz, stat;
 
-    // Format czytania musi odpowiadać formatowi zapisu
     while (fscanf(plik, "%d;%100[^;];%280[^;];%d;%d;%d\n", 
                   &id, autor, tresc, &kat, &zglosz, &stat) == 6) {
         dodaj_post(baza, autor, tresc, (Kategoria)kat);
-        // Po dodaniu aktualizujemy id i status na te wczytane z pliku
         Post* temp = baza->head;
-        while(temp->next != NULL) temp = temp->next; // idziemy do ostatnio dodanego
+        while(temp->next != NULL) temp = temp->next;
         temp->id = id;
         temp->status = (Status)stat;
         temp->liczba_zgloszen = zglosz;
