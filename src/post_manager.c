@@ -48,7 +48,20 @@ void usun_posty_kategorii(BazaPostow* baza, Kategoria kat) {
                 continue;
             }
 
-            
+            Post* do_usuniecia = aktualny;
+            if (poprzedni == NULL) {
+                baza->head = aktualny->next;
+                aktualny = baza->head;
+            } else {
+                poprzedni->next = aktualny->next;
+                aktualny = poprzedni->next;
+            }
+            free(do_usuniecia);
+            licznik++;
+        } else {
+            poprzedni = aktualny;
+            aktualny = aktualny->next;
+        }
     }
     printf("Usunieto %d postow z wybranej kategorii.\n", licznik);
 }
