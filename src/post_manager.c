@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "post_manager.h"
 #include <string.h>
+#include "post_manager.h"
 
 void inicjalizuj_baze(BazaPostow* baza) {
     baza->head = NULL;
@@ -10,58 +10,81 @@ void inicjalizuj_baze(BazaPostow* baza) {
 
 void dodaj_post(BazaPostow* baza, const char* autor, const char* tresc, Kategoria kat) {
     Post* nowy = (Post*)malloc(sizeof(Post));
-    if (nowy == NULL) {
-        printf("Blad alokacji pamieci!\n");
-        return;
-    }
+    if (!nowy) return;
 
     baza->ostatnie_id++;
     nowy->id = baza->ostatnie_id;
     strncpy(nowy->autor, autor, 100);
+    nowy->autor[100] = '\0';
     strncpy(nowy->tresc, tresc, 280);
+    nowy->tresc[280] = '\0';
     nowy->kategoria = kat;
-    nowy->liczba_zgloszen = 0;
+    nowy->liczba_zgloszen = 1;
     nowy->status = DO_WERYFIKACJI;
     nowy->next = NULL;
 
-    if (baza->head == NULL) {
+    if (!baza->head) {
         baza->head = nowy;
     } else {
         Post* temp = baza->head;
-        while (temp->next != NULL) {
-            temp = temp->next;
-        }
+        while (temp->next) temp = temp->next;
         temp->next = nowy;
     }
 }
 
 void usun_posty_kategorii(BazaPostow* baza, Kategoria kat) {
-    Post *aktualny = baza->head, *poprzedni = NULL;
-    int licznik = 0;
-
-    while (aktualny != NULL) {
-        if (aktualny->kategoria == kat) {
-            if (aktualny->status == DO_WERYFIKACJI) {
-                printf("Pominieto ID %d: Post niezweryfikowany.\n", aktualny->id);
-                poprzedni = aktualny;
-                aktualny = aktualny->next;
+    Post *akt = baza->head, *poprz = NULL;
+    while (akt) {
+        if (akt->kategoria == kat) {
+            if (akt->status == DO_WERYFIKACJI) {
+                printf("Pominieto ID %d: wymagana weryfikacja.\n", akt->id);
+                poprz = akt;
+                akt = akt->next;
                 continue;
             }
-
-            Post* do_usuniecia = aktualny;
-            if (poprzedni == NULL) {
-                baza->head = aktualny->next;
-                aktualny = baza->head;
-            } else {
-                poprzedni->next = aktualny->next;
-                aktualny = poprzedni->next;
-            }
-            free(do_usuniecia);
-            licznik++;
+            Post* do_usun = akt;
+            if (!poprz) baza->head = akt->next;
+            else poprz->next = akt->next;
+            akt = akt->next;
+            free(do_usun);
         } else {
-            poprzedni = aktualny;
-            aktualny = aktualny->next;
+            poprz = akt;
+            akt = akt->next;
         }
     }
-    printf("Usunieto %d postow z wybranej kategorii.\n", licznik);
+}
+
+void usun_pojedynczy_post(BazaPostow* baza, int id) {
+    Post *akt = baza->head, *poprz = NULL;
+    while (akt) {
+        if (akt->id == id) {
+            if (akt->status == DO_WERYFIKACJI) {
+                printf("Blad: Post ID %d nie moze zostac usuniety bez weryfikacji!\n", id);
+                return;
+            }
+            if (!poprz) baza->head = akt->next;
+            else poprz->next = akt->next;
+            free(akt);
+            printf("Post %d usuniety.\n", id);
+            return;
+        }
+        poprz = akt;
+        akt = akt->next;
+    }
+}
+
+void zmien_status(BazaPostow* baza, int id, Status nowy_status) {
+    Post* akt = baza->head;
+    while (akt && akt->id != id) akt = akt->next;
+    if (akt) akt->status = nowy_status;
+}
+
+void wyczysc_baze(BazaPostow* baza) {
+    Post* akt = baza->head;
+    while (akt) {
+        Post* do_usun = akt;
+        akt = akt->next;
+        free(do_usun);
+    }
+    baza->head = NULL;
 }

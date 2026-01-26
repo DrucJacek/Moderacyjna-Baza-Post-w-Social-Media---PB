@@ -4,44 +4,28 @@
 
 void zapisz_do_pliku(const char* nazwa_pliku, BazaPostow* baza) {
     FILE* plik = fopen(nazwa_pliku, "w");
-    if (plik == NULL) {
-        printf("Blad: Nie mozna otworzyc pliku do zapisu!\n");
-        return;
+    if (!plik) return;
+    Post* akt = baza->head;
+    while (akt) {
+        fprintf(plik, "%d;%s;%s;%d;%d;%d\n", akt->id, akt->autor, akt->tresc, akt->kategoria, akt->liczba_zgloszen, akt->status);
+        akt = akt->next;
     }
-
-    Post* aktualny = baza->head;
-    while (aktualny != NULL) {
-        fprintf(plik, "%d;%s;%s;%d;%d;%d\n", 
-                aktualny->id, aktualny->autor, aktualny->tresc, 
-                aktualny->kategoria, aktualny->liczba_zgloszen, aktualny->status);
-        aktualny = aktualny->next;
-    }
-
     fclose(plik);
-    printf("Baza zostala zapisana do: %s\n", nazwa_pliku);
 }
 
 void wczytaj_z_pliku(const char* nazwa_pliku, BazaPostow* baza) {
     FILE* plik = fopen(nazwa_pliku, "r");
-    if (plik == NULL) {
-        printf("Informacja: Plik %s nie istnieje. Rozpoczynanie z pusta baza.\n", nazwa_pliku);
-        return;
-    }
-
+    if (!plik) return;
     char autor[101], tresc[281];
-    int id, kat, zglosz, stat;
-
-    while (fscanf(plik, "%d;%100[^;];%280[^;];%d;%d;%d\n", 
-                  &id, autor, tresc, &kat, &zglosz, &stat) == 6) {
+    int id, kat, zgl, st;
+    while (fscanf(plik, "%d;%100[^;];%280[^;];%d;%d;%d\n", &id, autor, tresc, &kat, &zgl, &st) == 6) {
         dodaj_post(baza, autor, tresc, (Kategoria)kat);
         Post* temp = baza->head;
-        while(temp->next != NULL) temp = temp->next;
+        while (temp->next) temp = temp->next;
         temp->id = id;
-        temp->status = (Status)stat;
-        temp->liczba_zgloszen = zglosz;
+        temp->status = (Status)st;
+        temp->liczba_zgloszen = zgl;
         if (id > baza->ostatnie_id) baza->ostatnie_id = id;
     }
-
     fclose(plik);
-    printf("Wczytano dane z pliku.\n");
 }

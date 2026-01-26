@@ -1,0 +1,5 @@
+2;Marek_Moderator;Witajcie w systemie QuickTalk;1;0;2
+3;Anna_Nowak;Czy ktos widzial moje klucze?;4;12;3
+5;User123;To nieprawda, ten post to fake news!;3;8;1
+6;Jan;Tresc...;0;0;0
+7;Jan;Tresc...;0;0;0
