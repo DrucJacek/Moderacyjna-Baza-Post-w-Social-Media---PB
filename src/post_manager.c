@@ -37,7 +37,7 @@ void usun_posty_kategorii(BazaPostow* baza, Kategoria kat) {
     while (akt) {
         if (akt->kategoria == kat) {
             if (akt->status == DO_WERYFIKACJI) {
-                printf("Pominieto ID %d: wymagana weryfikacja.\n", akt->id);
+                printf("Pominięto ID %d: wymagana weryfikacja.\n", akt->id);
                 poprz = akt;
                 akt = akt->next;
                 continue;
@@ -51,25 +51,6 @@ void usun_posty_kategorii(BazaPostow* baza, Kategoria kat) {
             poprz = akt;
             akt = akt->next;
         }
-    }
-}
-
-void usun_pojedynczy_post(BazaPostow* baza, int id) {
-    Post *akt = baza->head, *poprz = NULL;
-    while (akt) {
-        if (akt->id == id) {
-            if (akt->status == DO_WERYFIKACJI) {
-                printf("Blad: Post ID %d nie moze zostac usuniety bez weryfikacji!\n", id);
-                return;
-            }
-            if (!poprz) baza->head = akt->next;
-            else poprz->next = akt->next;
-            free(akt);
-            printf("Post %d usuniety.\n", id);
-            return;
-        }
-        poprz = akt;
-        akt = akt->next;
     }
 }
 
