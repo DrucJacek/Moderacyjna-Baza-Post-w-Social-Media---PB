@@ -24,5 +24,6 @@ void dodaj_post(BazaPostow* baza, const char* autor, const char* tresc, Kategori
 void wyczysc_baze(BazaPostow* baza);
 void usun_posty_kategorii(BazaPostow* baza, Kategoria kat);
 void zmien_status(BazaPostow* baza, int id, Status nowy_status);
+void usun_pojedynczy_post(BazaPostow* baza, int id);
 
 #endif

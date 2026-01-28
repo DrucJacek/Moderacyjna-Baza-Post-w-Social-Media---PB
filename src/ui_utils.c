@@ -24,7 +24,15 @@ const char* kategoria_string(Kategoria k) {
 
 void wyswietl_menu() {
     printf("\n|======-MENU-======|");
-    printf("\n| 1.Dodaj post     |\n| 2.Wyświetl posty |\n| 3.Szukaj posta   |\n| 4.Zmień status   |\n| 5.Usuń           |\n| 6.Sortuj         |\n| 7.Wyjdź          |\n|==================| \n Wybór: ");
+    printf("\n| 1.Dodaj post     |");
+    printf("\n| 2.Wyświetl posty |");
+    printf("\n| 3.Szukaj posta   |"); 
+    printf("\n| 4.Zmień status   |");
+    printf("\n| 5.Usuń (Kateg.)  |");
+    printf("\n| 6.Usuń (ID)      |"); 
+    printf("\n| 7.Sortuj         |");
+    printf("\n| 8.Wyjdź          |");
+    printf("\n|==================| \n Wybór: ");
 }
 
 void wyswietl_wszystkie_posty(BazaPostow* baza) {

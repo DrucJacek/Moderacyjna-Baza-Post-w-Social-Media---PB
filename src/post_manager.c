@@ -54,6 +54,29 @@ void usun_posty_kategorii(BazaPostow* baza, Kategoria kat) {
     }
 }
 
+void usun_pojedynczy_post(BazaPostow* baza, int id) {
+    Post *akt = baza->head, *poprz = NULL;
+    while (akt) { 
+        if (akt->id == id) { 
+           
+            if (akt->status == DO_WERYFIKACJI) {
+                printf("BLAD: Nie mozna usunac posta ID %d przed weryfikacja!\n", id);
+                return;
+            }
+            
+            if (!poprz) baza->head = akt->next; 
+            else poprz->next = akt->next;       
+            
+            free(akt); 
+            printf("Usunieto post ID %d.\n", id);
+            return;
+        }
+        poprz = akt;
+        akt = akt->next;
+    }
+    printf("Nie znaleziono posta o ID %d.\n", id);
+}
+
 void zmien_status(BazaPostow* baza, int id, Status nowy_status) {
     Post* akt = baza->head;
     while (akt && akt->id != id) akt = akt->next;
